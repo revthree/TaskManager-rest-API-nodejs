@@ -58,3 +58,16 @@ export const RoleCheck = (...allowedRoles) => {
         next()
     }
 }
+
+export const GlobalErrorHandling = (error, req, res, next) => {  
+        console.log("hi")
+    if(error.message === "DuplicateKey"){
+            return res.status(error.status).json({
+                msg : error.message
+            })
+    } 
+    return res.status(500).json({
+            msg : " internal server error",
+            error : error.message
+    })
+}

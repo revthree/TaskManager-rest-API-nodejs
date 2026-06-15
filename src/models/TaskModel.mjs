@@ -4,13 +4,11 @@ import { TaskStatus } from "../../enums.mjs";
 const TaskSchema = new mongoose.Schema({
     title : {
         type : String,
-        required : true,
-        unique : true
+        required : true
     },
     description : {
         type : String,
-        required : true,
-        unique : true
+        required : true
     },
     status : {
         type : String,

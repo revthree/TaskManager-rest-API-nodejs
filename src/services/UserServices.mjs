@@ -5,7 +5,7 @@ import { UserRole } from "../../enums.mjs"
 import mongoose from "mongoose"
 import ProfileDB from "../models/ProfileModel.mjs"
 import { isValidMongoId } from "../controllers/UserController.mjs"
-
+import AppError from "../../AppError.mjs"
 
 
 
@@ -18,7 +18,8 @@ const createUser = async (userInfo) => {
         const saved = await UserDB.create(userInfo)
         return (saved)
     }
-    throw new Error("DuplicateKey")
+   
+    throw new AppError("DuplicateKey", 400)
     
 }
 
@@ -158,9 +159,7 @@ const removeUser = async (id) => {
     if(!deleted){
         throw new Error("UserNotFound")
     }
-    return deleted
-
-    
+    return deleted    
 }
 
 

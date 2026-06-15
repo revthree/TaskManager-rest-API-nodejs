@@ -2,6 +2,7 @@ import { matchedData } from "express-validator"
 import UserServices from "../services/UserServices.mjs"
 import { token } from "morgan"
 import mongoose from "mongoose"
+import { AsyncHandler } from "../../utils.mjs"
 
 
 export  const isValidMongoId = (id) => {
@@ -11,26 +12,12 @@ export  const isValidMongoId = (id) => {
     return true
 }
 
-export const createUser = async (req, res) => {
-    try{
-        
+export const createUser = AsyncHandler(
+    async (req, res) => {
         const saved = await UserServices.createUser(matchedData(req))
         return res.status(201).json(saved)
-        
-    }catch (e){
-        if(e.message === "DuplicateKey"){
-            return res.status(400).json({
-                msg : "username already exists"
-            })
-        } 
-        return res.status(500).json({
-            msg : " internal server error",
-            error : e.message
-        })
-
     }
-    
-}
+)
 
 export const loginUser = async (req, res) => {
     try{

@@ -1,4 +1,4 @@
-import { UserRole } from "./enums.mjs"
+import { UserRole, TaskStatus } from "./enums.mjs"
 
 //Employee
 export const EmployeeValidationSchema = {
@@ -100,7 +100,7 @@ export const ProfileValidationSchema = {
         },
         optional : true
     },
-    EmployeeeId : {
+    employeeeId : {
         notEmpty : {
             errorMessage : "must have a employee ID"
         },
@@ -138,3 +138,87 @@ export const ProfilePatchSchema = {
         optional : true
     }
 }
+
+export const TaskCreationSchema = {
+    title: {
+        notEmpty: {
+            errorMessage: "title cannot be empty"
+        }
+    },
+
+    description: {
+        notEmpty: {
+            errorMessage: "description cannot be empty"
+        }
+    },
+
+    status: {
+        optional: true,
+        isIn: {
+            options: [TaskStatus],
+            errorMessage: "invalid task status"
+        }
+    },
+
+    employeeId: {
+        optional: true,
+        isMongoId: {
+            errorMessage: "employeeId must be a valid MongoDB ObjectId"
+        }
+    },
+
+    managerId: {
+        optional : true,
+        notEmpty: {
+            errorMessage: "managerId cannot be empty"
+        },
+       
+    }
+};
+
+export const TaskPatchSchema = {
+    title: {
+        notEmpty: {
+            errorMessage: "title cannot be empty"
+        },
+        optional: true
+    },
+
+    description: {
+        notEmpty: {
+            errorMessage: "description cannot be empty"
+        },
+        optional: true
+    },
+
+    status: {
+        notEmpty: {
+            errorMessage: "status cannot be empty"
+        },
+        isIn: {
+            options: [TaskStatus],
+            errorMessage: "invalid task status"
+        },
+        optional: true
+    },
+
+    employeeId: {
+        notEmpty: {
+            errorMessage: "employeeId cannot be empty"
+        },
+        isMongoId: {
+            errorMessage: "employeeId must be a valid MongoDB ObjectId"
+        },
+        optional: true
+    },
+
+    managerId: {
+        notEmpty: {
+            errorMessage: "managerId cannot be empty"
+        },
+        isMongoId: {
+            errorMessage: "managerId must be a valid MongoDB ObjectId"
+        },
+        optional: true
+    }
+};
